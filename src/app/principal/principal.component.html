@@ -1,16 +1,17 @@
 <form action="">
 
-    <img src="assets/cliente.png" alt="">
+    <img src="assets/cliente.png" alt=""/>
 
-    <inpuT type="text" placeholder="Nome" class="form-control">
-    <inpuT type="number" placeholder="Idade" class="form-control">
-    <inpuT type="text" placeholder="Cidade" class="form-control">
+    <input type="text" placeholder="Nome" class="form-control">
+    <input type="number" placeholder="Idade" class="form-control">
+    <input type="text" placeholder="Cidade" class="form-control">
 
-
-    <input type="button" value="Cadastrar" class="btn btn-primary">
-    <input type="button" value="Alterar" class="btn btn-warning">
-    <input type="button" value="Remover" class="btn btn-danger">
-    <input type="button" value="Cancelar" class="btn btn-secondary">
+    <input type="button" value="Cadastrar" class="btn btn-primary" [class.show]="btnCadastro">
+    <input type="button" value="Alterar" class="btn btn-warning" [class.show]="!btnCadastro">
+    <input type="button" value="Remover" class="btn btn-danger" [class.show]="!btnCadastro">
+    <input type="button" value="Cancelar" class="btn btn-secondary" [class.show]="!btnCadastro">
+    
+    
 
 </form>
 
@@ -25,6 +26,16 @@
 <th>Selecionar</th>
 </tr>
 </thead>
-<tbody></tbody>
+<tbody>
+
+<tr *ngFor="let c of clientes">
+    <td></td>
+    <td>{{c.nome}}</td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+
+</tbody>
 
 </table>
