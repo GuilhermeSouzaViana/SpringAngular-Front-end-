@@ -9,7 +9,7 @@ import { Cliente } from '../modelo/Cliente';
 })
 export class ClienteService {
 
-private url:string='http://localhost:8080';
+private url:string='http://localhost:8080/listar';
 
 constructor(private http:HttpClient){}
 
