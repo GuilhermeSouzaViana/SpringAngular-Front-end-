@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {Observable} from 'rxjs'
+import { Observable } from 'rxjs'
 import { Cliente } from '../modelo/Cliente';
 
 
@@ -9,15 +9,35 @@ import { Cliente } from '../modelo/Cliente';
 })
 export class ClienteService {
 
-private url:string='http://localhost:8080/listar';
+  private urlListar: string = 'http://localhost:8080/listar';
 
-constructor(private http:HttpClient){}
+  private urlCadastrar: string = 'http://localhost:8080/cadastro';
+
+  private urlEditar: string = 'http://localhost:8080/editar';
+
+  private urlRemover: string = 'http://localhost:8080/remover';
+
+  constructor(private http: HttpClient) { }
 
 
-selecionar():Observable<Cliente[]>{
+  selecionar(): Observable<Cliente[]> {
 
-  return this.http.get<Cliente[]>(this.url);
-}
+    return this.http.get<Cliente[]>(this.urlListar);
+  }
+
+  cadastrar(obj: Cliente): Observable<Cliente> {
+    return this.http.post<Cliente>(this.urlCadastrar, obj);
+  }
 
 
+  editar(obj: Cliente): Observable<Cliente> {
+    return this.http.put<Cliente>(this.urlEditar, obj);
+  }
+
+
+  remover(codigo: number): Observable<void> {
+
+    return this.http.delete<void>(this.urlRemover + "/" + codigo);
+
+  }
 }

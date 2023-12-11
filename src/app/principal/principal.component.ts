@@ -7,17 +7,19 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-principal',
   standalone: true,
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './principal.component.html',
   styleUrls: ['./principal.component.css']
 })
 
 export class PrincipalComponent {
 
-cliente=new Cliente();
+  cliente = new Cliente();
 
 
   btnCadastro: boolean = true;
+
+  tabela: boolean = true;
 
 
   clientes: Cliente[] = [];
@@ -31,7 +33,79 @@ cliente=new Cliente();
 
   }
 
-  ngOnInit(){
+
+  cadastrar(): void {
+    this.servico.cadastrar(this.cliente)
+      .subscribe(retorno => {
+        this.clientes.push(retorno);
+
+        this.cliente = new Cliente();
+        alert('Cliente cadastrado com sucesso !')
+      });
+  }
+
+  selecionarCliente(posicao: number): void {
+
+    this.cliente = this.clientes[posicao];
+
+    this.btnCadastro = false;
+
+    this.tabela = false;
+
+  }
+
+  editarCliente(): void {
+    this.servico.editar(this.cliente)
+      .subscribe(retorno => {
+
+        let posicao = this.clientes.findIndex(obj => {
+          return obj.codigo == retorno.codigo;
+        });
+
+        this.clientes[posicao] = retorno;
+
+        this.cliente = new Cliente();
+
+        this.btnCadastro = true;
+        this.tabela = true;
+
+        alert("Cliente alterado com sucesso !")
+
+      })
+  }
+
+
+  removerCliente(): void {
+    this.servico.remover(this.cliente.codigo)
+      .subscribe(retorno => {
+
+        let posicao = this.clientes.findIndex(obj => {
+          return obj.codigo == this.cliente.codigo;
+        });
+
+        this.clientes.splice(posicao, 1);
+
+        this.cliente = new Cliente();
+
+        this.btnCadastro = true;
+        this.tabela = true;
+
+        alert("Cliente removido com sucesso !")
+
+      })
+  }
+
+
+  cancelar(): void {
+
+    this.cliente = new Cliente();
+
+    this.btnCadastro = true;
+    this.tabela = true;
+
+  }
+
+  ngOnInit() {
     this.selecionar();
   }
 
