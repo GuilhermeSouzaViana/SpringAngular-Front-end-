@@ -2,16 +2,21 @@ import { Component } from '@angular/core';
 import { Cliente } from '../modelo/Cliente';
 import { ClienteService } from '../servico/cliente.service';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-principal',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,FormsModule],
   templateUrl: './principal.component.html',
   styleUrls: ['./principal.component.css']
 })
 
 export class PrincipalComponent {
+
+cliente=new Cliente();
+
+
   btnCadastro: boolean = true;
 
 
@@ -26,8 +31,8 @@ export class PrincipalComponent {
 
   }
 
-ngOnInit(){
-  this.selecionar();
-}
+  ngOnInit(){
+    this.selecionar();
+  }
 
 }
